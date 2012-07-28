@@ -1,0 +1,11 @@
+<form action="<%= @action %>" method="post" accept-charset="utf-8">
+  <div class="field">
+    <label for="title">Title</label><br />
+    <input type="text" name="post[title]" value="<%= @post.title || '' %>" id="title">
+  </div>
+  <div class="field">
+    <label for="body">Body</label><br />
+    <textarea name="post[body]" rows="8" cols="60"><%= @post.body || '' %></textarea>
+  </div>
+  <p><input type="submit" value="Save &rarr;"></p>
+</form>

@@ -11,8 +11,9 @@
     <%= dat_render(@post.body) %>
   </section>
   
-  <section id="comments">
-   
-  </section>
+  <form action="<%= @post.slug %>/delete" method="post" accept-charset="utf-8">
+    <p><a href="<%= @post.slug %>/edit">Edit</a> | <input type="submit" value="Delete &rarr;"></p>
+  </form>
+  
   
 </article>
