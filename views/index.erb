@@ -4,10 +4,9 @@
       <div class="post-wrapper" >
         <h2><%= link_to post.title, "/posts/#{post.slug}" %></h2>
         <div class="date">
-          <%= post.created_at %>
+          <%= post.created_at.httpdate %>
         </div>
         <div class="content"><%= dat_render(post.body) %></div>
-        
     </article>
   <% end %>
 </div>

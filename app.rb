@@ -20,6 +20,7 @@ end
 
 get '/posts/:slug' do
   @post = Post.find_by_slug(params[:slug])
+  @post.comments.build
   erb :show
 end
 
@@ -47,6 +48,17 @@ post '/posts/:slug/delete' do
   end
 end
 
+post '/posts/:slug/comment' do
+  @post = Post.find_by_slug(params[:slug])
+  @post.comments.build
+  @comment = Comment.new(params[:comment])
+  begin @comment.save
+    redirect "/posts/#{@post.slug}"
+  rescue => e
+    log(e)
+  end
+end
+  
 get '/new' do
   @post = Post.new
   @action = "new"

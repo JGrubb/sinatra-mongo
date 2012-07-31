@@ -4,7 +4,7 @@
     <%= @post.title %>
   </h2>
   <div class="date">
-    <%= @post.created_at %>
+    <%= @post.created_at.httpdate %>
   </div>
 
   <section class="post">
@@ -15,5 +15,28 @@
     <p><a href="<%= @post.slug %>/edit">Edit</a> | <input type="submit" value="Delete &rarr;"></p>
   </form>
   
+  <form action="<%= @post.slug %>/comment" method="post" accept-charset="utf-8">
+    <div class="field">
+      <label for="name">Name</label><br />
+      <input type="text" name="comment[name]" value="" id="name">
+    </div>
+    <div class="field">
+      <label for="email">Email</label><br />
+      <input type="text" name="comment[email]" value="" id="email">
+    </div>
+    <div class="field">
+      <label for="comment">Comment</label><br />
+      <textarea name="comment[body]" rows="8" cols="40"></textarea>
+    </div>
+    <p><input type="submit" value="Submit &rarr;"></p>
+  </form>
+  <% @post.comments.each do |comment| %>
+    <div>
+      <em><%= comment.name %></em><br />
+      <div>
+        <%= comment.body %>
+      </div>
+    </div>
+  <% end %>
   
 </article>

@@ -11,4 +11,16 @@ class Post
   
   timestamps!
   
+  many :comments
+  
+end
+
+class Comment
+  include MongoMapper::EmbeddedDocument
+  
+  key :name, String
+  key :email, String
+  key :body, String
+  
+  belongs_to :post
 end

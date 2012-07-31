@@ -1,5 +1,5 @@
 <% @posts.each do |post| %>
   <div class="all post ">
-    <div class="date"><%= post.created_at %></div> - <a href="/posts/<%= post.slug %>"><%= post.title %></a>
+    <div class="date"><%= post.created_at.httpdate %></div> - <a href="/posts/<%= post.slug %>"><%= post.title %></a>
   </div>
 <% end %>
