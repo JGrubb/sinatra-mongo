@@ -50,13 +50,19 @@ end
 
 post '/posts/:slug/comment' do
   @post = Post.find_by_slug(params[:slug])
-  @post.comments.build
-  @comment = Comment.new(params[:comment])
-  begin @comment.save
+  @post.comments << Comment.new(params[:comment])
+  if @post.save
     redirect "/posts/#{@post.slug}"
-  rescue => e
-    log(e)
+  else
+    env['sinatra.error'].name
   end
+end
+
+post '/posts/:slug/:comment_id/delete' do
+  @post = Post.find_by_slug(params[:slug])
+  @post.comments.find(:comment_id).delete
+  #@comment.delete
+  redirect "/posts/#{@post.slug}"
 end
   
 get '/new' do
@@ -77,8 +83,10 @@ end
 
 def sluggify(str)
   a = str.split(" ")
-  b ||= []
-  a.map { |el| b << el.downcase }
-  c = b.join("-")
-  c += "-#{Post.count + 1}" 
+  b = a.map { |el| el.downcase }.join("-")
+  if Post.find_by_slug(b)
+    b << "-#{Post.count + 1}"
+  else
+    b
+  end
 end

@@ -15,6 +15,18 @@
     <p><a href="<%= @post.slug %>/edit">Edit</a> | <input type="submit" value="Delete &rarr;"></p>
   </form>
   
+  <% @post.comments.each do |comment| %>
+    <div class="comment">
+      <em><%= comment.name %></em><br />
+      <div>
+        <%= comment.body %>
+      </div>
+      <form action="<%= @post.slug %>/<%= comment.id%>/delete" method="post" accept-charset="utf-8">
+        <p><input type="submit" value="Delete &rarr;"></p>
+      </form>
+    </div>
+  <% end %>
+  
   <form action="<%= @post.slug %>/comment" method="post" accept-charset="utf-8">
     <div class="field">
       <label for="name">Name</label><br />
@@ -30,13 +42,5 @@
     </div>
     <p><input type="submit" value="Submit &rarr;"></p>
   </form>
-  <% @post.comments.each do |comment| %>
-    <div>
-      <em><%= comment.name %></em><br />
-      <div>
-        <%= comment.body %>
-      </div>
-    </div>
-  <% end %>
   
 </article>

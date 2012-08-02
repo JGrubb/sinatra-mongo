@@ -1,5 +1,6 @@
 require 'sequel'
 require 'mongo'
+require 'date'
 
 DB = Sequel.connect(
   :adapter => 'mysql',
@@ -17,6 +18,6 @@ mongo_posts = db['posts']
 
 posts.order(:created_at, "ASC").each_with_index do |post, i|
   puts post
-  mongo_posts.save({:title => post[:title], :body => post[:body], :created_at => post[:created_at], :updated_at => post[:updated_at], :slug => "#{post[:slug]}-#{i}", :published => post[:published]})
+  mongo_posts.save({:title => post[:title], :body => post[:body], :created_at => post[:created_at], :updated_at => post[:updated_at], :slug => "#{post[:slug]}", :published => post[:published]})
 end
 
